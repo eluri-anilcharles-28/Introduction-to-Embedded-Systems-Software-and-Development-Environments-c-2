@@ -1,0 +1,19 @@
+/* Minimal linker script placeholder.
+   This is a very simple layout so cross-linker can produce an ELF.
+   For real hardware use the provided vendor linker script.
+*/
+ENTRY(Reset_Handler)
+
+SECTIONS
+{
+  . = 0x20000000 + 0x0000; /* place at RAM (arbitrary for stub) */
+  .text : {
+    KEEP(*(.isr_vector))
+    *(.text*)
+    *(.rodata*)
+  }
+
+  .data : { *(.data*) }
+  .bss  : { *(.bss*) }
+  /DISCARD/ : { *(.eh_frame*) }
+}
